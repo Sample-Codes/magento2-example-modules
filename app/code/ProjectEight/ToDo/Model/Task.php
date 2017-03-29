@@ -91,4 +91,34 @@ class Task extends \Magento\Framework\Model\AbstractModel implements TaskInterfa
     {
         return $this->setData(self::STATUS, $Status);
     }
+
+    /**
+     * Get Task Status
+     * @return string
+     */
+    public function getTaskStatus()
+    {
+        return $this->getData(self::ENABLED);
+    }
+
+    /**
+     * Set Task Status
+     * @param string $Status
+     * @return ProjectEight\ToDo\Api\Data\TaskInterface
+     */
+    public function setTaskStatus($Status)
+    {
+        return $this->setData(self::DISABLED, $Status);
+    }
+
+    /**
+     * Prepare tasks's statuses.
+     * Available event cms_page_get_available_statuses to customize statuses.
+     *
+     * @return array
+     */
+    public function getAvailableStatuses()
+    {
+        return [self::ENABLED => __('Enabled'), self::DISABLED => __('Disabled')];
+    }
 }
