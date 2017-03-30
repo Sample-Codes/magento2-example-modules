@@ -15,7 +15,7 @@
  *
  */
 
-namespace ProjectEight\Ftp\Test\Integration;
+namespace ProjectEight\FtpExample\Test\Integration;
 
 use Magento\Framework\App\DeploymentConfig;
 use Magento\Framework\App\DeploymentConfig\Reader as DeploymentConfigReader;
@@ -31,7 +31,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      *
      * @var string
      */
-    private $moduleName = 'ProjectEight_Ftp';
+    private $moduleName = 'ProjectEight_FtpExample';
 
     /**
      * Test that the test environment is setup correctly

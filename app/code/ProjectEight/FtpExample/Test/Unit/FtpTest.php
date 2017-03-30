@@ -6,10 +6,10 @@
  * Time: 17:50
  */
 
-namespace ProjectEight\Ftp\Test\Unit;
+namespace ProjectEight\FtpExample\Test\Unit;
 
 use Magento\TestFramework\ObjectManager;
-use ProjectEight\Ftp\Model\Ftp;
+use ProjectEight\FtpExample\Model\Ftp;
 
 class FtpTest extends \PHPUnit_Framework_TestCase
 {
@@ -29,6 +29,6 @@ class FtpTest extends \PHPUnit_Framework_TestCase
     public function testCanOpenFtpConnection()
     {
         /** @var Ftp $ftpMock */
-        $ftpMock = $this->objectManager->get('ProjectEight\Ftp\Model\Ftp');
+        $ftpMock = $this->objectManager->get('ProjectEight\FtpExample\Model\Ftp');
     }
 }

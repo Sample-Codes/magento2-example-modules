@@ -1,6 +1,6 @@
 <?php
     \Magento\Framework\Component\ComponentRegistrar::register(
         \Magento\Framework\Component\ComponentRegistrar::MODULE,
-        'ProjectEight_Ftp',
+        'ProjectEight_FtpExample',
         __DIR__
     );

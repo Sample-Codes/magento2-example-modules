@@ -1,12 +1,12 @@
 <?php
 
-namespace ProjectEight\Ftp\Model;
+namespace ProjectEight\FtpExample\Model;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\Filesystem\Io\Ftp as FtpClient;
-use ProjectEight\Ftp\Model\Exception\FtpConnectionFailed;
-use ProjectEight\Ftp\Model\Exception\FtpDownloadFailed;
-use ProjectEight\Ftp\Model\Exception\FtpUploadFailed;
+use ProjectEight\FtpExample\Model\Exception\FtpConnectionFailed;
+use ProjectEight\FtpExample\Model\Exception\FtpDownloadFailed;
+use ProjectEight\FtpExample\Model\Exception\FtpUploadFailed;
 
 class Ftp
 {
