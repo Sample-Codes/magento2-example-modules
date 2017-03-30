@@ -13,11 +13,10 @@ use ProjectEight\Ftp\Model\Ftp;
 
 class FtpTest extends \PHPUnit_Framework_TestCase
 {
-
-//    public function testEverythingWorks()
-//    {
-//        $this->assertSame( true, true);
-//    }
+    public function testEverythingWorks()
+    {
+        $this->assertSame(true, true);
+    }
 
     /** @var ObjectManager */
     protected $objectManager;
