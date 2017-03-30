@@ -2,6 +2,7 @@
 
 namespace ProjectEight\Ftp\Model;
 
+use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\Filesystem\Io\Ftp as FtpClient;
 use ProjectEight\Ftp\Model\Exception\FtpConnectionFailed;
 use ProjectEight\Ftp\Model\Exception\FtpDownloadFailed;
@@ -17,13 +18,24 @@ class Ftp
     private $ftpClient;
 
     /**
+     * Store configuration
+     *
+     * @var ScopeConfigInterface
+     */
+    private $scopeConfig;
+
+    /**
      * Ftp constructor
      *
-     * @param FtpClient $ftpClient
+     * @param FtpClient            $ftpClient
+     * @param ScopeConfigInterface $scopeConfig
      */
-    public function __construct(FtpClient $ftpClient)
-    {
-        $this->ftpClient = $ftpClient;
+    public function __construct(
+        FtpClient $ftpClient,
+        ScopeConfigInterface $scopeConfig
+    ) {
+        $this->ftpClient   = $ftpClient;
+        $this->scopeConfig = $scopeConfig;
     }
 
     /**
@@ -34,10 +46,22 @@ class Ftp
     protected function _getCredentials()
     {
         return [
-            'host'      => 'ftp.localhost.com',
-            'username'  => 'ftp_username',
-            'password'  => 'ftp_password'
+            'host'     => $this->_getStoreConfigValue('ftp_credentials/hostname'),
+            'username' => $this->_getStoreConfigValue('ftp_credentials/username'),
+            'password' => $this->_getStoreConfigValue('ftp_credentials/password'),
         ];
+    }
+
+    /**
+     * Get store config value
+     *
+     * @param string $configPath
+     *
+     * @return string
+     */
+    protected function _getStoreConfigValue($configPath)
+    {
+        return $this->scopeConfig->getValue($configPath);
     }
 
     /**
