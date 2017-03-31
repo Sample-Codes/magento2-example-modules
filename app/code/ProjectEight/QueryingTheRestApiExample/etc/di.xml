@@ -4,6 +4,7 @@
         <arguments>
             <argument name="commands" xsi:type="array">
                 <item name="projecteight_queryingtherestapiexample_command_getadmintoken" xsi:type="object">ProjectEight\QueryingTheRestApiExample\Command\GetAdminToken</item>
+                <item name="projecteight_queryingtherestapiexample_command_createcustomer" xsi:type="object">ProjectEight\QueryingTheRestApiExample\Command\CreateCustomer</item>
             </argument>
         </arguments>
     </type>
