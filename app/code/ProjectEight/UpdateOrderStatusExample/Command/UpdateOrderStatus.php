@@ -1,4 +1,20 @@
 <?php
+/**
+ * ProjectEight
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this module to newer
+ * versions in the future. If you wish to customize this module for your
+ * needs please contact ProjectEight for more information.
+ *
+ * @category    ProjectEight\magento2-example-modules
+ * @package     ProjectEight\UpdateOrderStatusExample
+ * @copyright   Copyright (c) 2017 ProjectEight
+ * @author      ProjectEight
+ *
+ */
+
 namespace ProjectEight\UpdateOrderStatusExample\Command;
 
 use Magento\Sales\Model\Order;
