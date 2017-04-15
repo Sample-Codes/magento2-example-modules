@@ -61,14 +61,14 @@ class InstallData implements InstallDataInterface
          * - startSetup() and endSetup() are intentionally omitted
          */
         $data = array(
-            'backend'                    => 'ProjectEight\\AddProductAttributeExample\\Model\\Attribute\\Backend\\Projecteightnotes',
+            'backend'                    => NULL,
             'type'                       => 'varchar',
             'table'                      => NULL,
             'frontend'                   => NULL,
             'input'                      => 'text',
             'label'                      => 'Projecteight Notes',
             'frontend_class'             => NULL,
-            'source'                     => 'ProjectEight\\AddProductAttributeExample\\Model\\Attribute\\Source\\Projecteightnotes',
+            'source'                     => NULL,
             'required'                   => 0,
             'user_defined'               => 1,
             'default'                    => NULL,
