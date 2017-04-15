@@ -40,7 +40,7 @@ class InstallData implements InstallDataInterface
     }
 
     /**
-     * Creates a new attribute 'p8_currency' and adds it to the Customer entity and the admin Manage Customer form
+     * Creates a new attribute 'p8_assigned_currency' and adds it to the Customer entity and the admin Manage Customer form
      * '$setup->startSetup()' and '$setup->endSetup()' are intentionally omitted
      *
      * {@inheritdoc}
@@ -60,14 +60,14 @@ class InstallData implements InstallDataInterface
             'table' => NULL,
             'frontend' => NULL,
             'input' => 'text',
-            'label' => 'P8 Currency',
+            'label' => 'Assigned Currency',
             'frontend_class' => NULL,
             'source' => NULL,
-            'required' => 0,
+            'required' => true,
             'user_defined' => 1,
-            'default' => NULL,
+            'default' => 'GBP',
             'unique' => 0,
-            'note' => NULL,
+            'note' => 'Currency assigned to customer. The customer cannot change this.',
             'global' => 1,
             'visible' => 1,
             'system' => 0,
@@ -76,7 +76,6 @@ class InstallData implements InstallDataInterface
             'validate_rules' => NULL,
             'data_model' => NULL,
             'sort_order' => 0,
-//            'group' => '',
             'position' => 999,
         );
 
@@ -84,7 +83,7 @@ class InstallData implements InstallDataInterface
         /** @var $attributeSet AttributeSet */
         $attributeSet     = $this->attributeSetFactory->create();
         $attributeGroupId = $attributeSet->getDefaultGroupId($attributeSetId);
-        $attributeCode = 'p8_currency';
+        $attributeCode = 'p8_assigned_currency';
         $customerSetup->addAttribute(Customer::ENTITY, $attributeCode, $data);
 
         /*
