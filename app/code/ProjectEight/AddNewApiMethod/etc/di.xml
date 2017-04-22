@@ -20,4 +20,6 @@
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <preference for="ProjectEight\AddNewApiMethod\Api\CalculatorInterface"
                 type="ProjectEight\AddNewApiMethod\Model\Calculator"/>
+    <preference for="ProjectEight\AddNewApiMethod\Api\Data\PointInterface"
+                type="ProjectEight\AddNewApiMethod\Model\Point" />
 </config>

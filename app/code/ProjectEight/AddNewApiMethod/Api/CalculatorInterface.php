@@ -17,6 +17,8 @@
 
 namespace ProjectEight\AddNewApiMethod\Api;
 
+use ProjectEight\AddNewApiMethod\Api\Data\PointInterface;
+
 interface CalculatorInterface
 {
     /**
@@ -28,4 +30,23 @@ interface CalculatorInterface
      * @return int
      */
     public function add($numberOne, $numberTwo);
+
+    /**
+     * Sum an array of numbers.
+     *
+     * @param float[] $numbers The array of numbers to sum.
+     *
+     * @return float The sum of the numbers.
+     */
+    public function sum($numbers);
+
+    /**
+     * Compute mid-point between two points.
+     *
+     * @param PointInterface $pointOne The first point.
+     * @param PointInterface $pointTwo The second point.
+     *
+     * @return PointInterface The mid-point.
+     */
+    public function midPoint($pointOne, $pointTwo);
 }
