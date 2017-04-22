@@ -8,7 +8,7 @@
  * versions in the future. If you wish to customize this module for your
  * needs please contact ProjectEight for more information.
  *
- * @category    magento2-sample-modules.localhost.com
+ * @category    AddProductAttributeExample
  * @package     InstallData.php
  * @copyright   Copyright (c) 2017 ProjectEight
  * @author      ProjectEight
