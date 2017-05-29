@@ -17,8 +17,17 @@
 
 namespace ProjectEight\PersistenceLayerExample\Controller\Adminhtml\WhatsIt;
 
+use Magento\Framework\Controller\ResultFactory;
+
 class Delete extends \ProjectEight\PersistenceLayerExample\Controller\Adminhtml\WhatsIt
 {
+    /**
+     * Authorization level of a basic admin session
+     *
+     * @see _isAllowed()
+     */
+    const ADMIN_RESOURCE = 'ProjectEight_PersistenceLayerExample::WhatsIt_delete';
+
     /**
      * Delete action
      *
@@ -26,51 +35,32 @@ class Delete extends \ProjectEight\PersistenceLayerExample\Controller\Adminhtml\
      */
     public function execute()
     {
-        /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
-        $resultRedirect = $this->resultRedirectFactory->create();
-        // check if we know what should be deleted
-        $id = $this->getRequest()->getParam('whatsit_id');
-        if ($id) {
+        /**
+         * @todo Refactor this to pass the form_key
+         * @todo Refactor this to use POST instead of GET
+         */
+//        /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
+//        $resultRedirect = $this->resultRedirectFactory->create();
+
+//        $formKeyIsValid = $this->_formKeyValidator->validate($this->getRequest());
+//        $isPost = $this->getRequest()->isPost();
+//        if (!$formKeyIsValid || !$isPost) {
+//            $this->messageManager->addError(__('WhatsIt could not be deleted.'));
+//            return $resultRedirect->setPath('*/*');
+//        }
+
+        $whatsItId = $this->initCurrentWhatsIt();
+        if (!empty($whatsItId)) {
             try {
-                // init model and delete
-                /**
-                 * @todo Should we be using the object manager here?
-                 */
-                $model = $this->_objectManager->create('ProjectEight\PersistenceLayerExample\Model\WhatsIt');
-                /**
-                 * @todo Refactor load() to use repository method
-                 */
-                $model->load($id);
-                /**
-                 * @todo Refactor delete() to use repository method
-                 */
-                $model->delete();
-                // display success message
-                /**
-                 * @todo Refactor this to not use a deprecated method
-                 */
-                $this->messageManager->addSuccess(__('You deleted the Whatsit.'));
-
-                // go to grid
-                return $resultRedirect->setPath('*/*/');
-            } catch (\Exception $e) {
-                // display error message
-                /**
-                 * @todo Refactor this to not use a deprecated method
-                 */
-                $this->messageManager->addError($e->getMessage());
-
-                // go back to edit form
-                return $resultRedirect->setPath('*/*/edit', ['whatsit_id' => $id]);
+                $this->whatsItRepository->deleteById($whatsItId);
+                $this->messageManager->addSuccessMessage(__('You deleted the WhatsIt.'));
+            } catch (\Exception $exception) {
+                $this->messageManager->addErrorMessage($exception->getMessage());
             }
         }
-        // display error message
-        /**
-         * @todo Refactor this to not use a deprecated method
-         */
-        $this->messageManager->addError(__('We can\'t find a Whatsit to delete.'));
 
-        // go to grid
-        return $resultRedirect->setPath('*/*/');
+        /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
+        $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
+        return $resultRedirect->setPath('*/*');
     }
 }

@@ -14,23 +14,18 @@
         <item name="template" xsi:type="string">templates/form/collapsible</item>
         <item name="buttons" xsi:type="array">
             <item name="back"
-                  xsi:type="string">ProjectEight\PersistenceLayerExample\Block\Adminhtml\WhatsIt\Edit\BackButton
-            </item>
+                  xsi:type="string">ProjectEight\PersistenceLayerExample\Block\Adminhtml\WhatsIt\Edit\BackButton</item>
             <item name="delete"
-                  xsi:type="string">ProjectEight\PersistenceLayerExample\Block\Adminhtml\WhatsIt\Edit\DeleteButton
-            </item>
+                  xsi:type="string">ProjectEight\PersistenceLayerExample\Block\Adminhtml\WhatsIt\Edit\DeleteButton</item>
             <item name="save"
-                  xsi:type="string">ProjectEight\PersistenceLayerExample\Block\Adminhtml\WhatsIt\Edit\SaveButton
-            </item>
+                  xsi:type="string">ProjectEight\PersistenceLayerExample\Block\Adminhtml\WhatsIt\Edit\SaveButton</item>
             <item name="save_and_continue"
-                  xsi:type="string">ProjectEight\PersistenceLayerExample\Block\Adminhtml\WhatsIt\Edit\SaveAndContinueButton
-            </item>
+                  xsi:type="string">ProjectEight\PersistenceLayerExample\Block\Adminhtml\WhatsIt\Edit\SaveAndContinueButton</item>
         </item>
     </argument>
     <dataSource name="whatsit_form_data_source">
         <argument name="dataProvider" xsi:type="configurableObject">
-            <argument name="class" xsi:type="string">ProjectEight\PersistenceLayerExample\Model\WhatsIt\DataProvider
-            </argument>
+            <argument name="class" xsi:type="string">ProjectEight\PersistenceLayerExample\Model\WhatsIt\DataProvider</argument>
             <argument name="name" xsi:type="string">whatsit_form_data_source</argument>
             <argument name="primaryFieldName" xsi:type="string">whatsit_id</argument>
             <argument name="requestFieldName" xsi:type="string">whatsit_id</argument>

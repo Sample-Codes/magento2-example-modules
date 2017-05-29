@@ -20,6 +20,13 @@ namespace ProjectEight\PersistenceLayerExample\Controller\Adminhtml\WhatsIt;
 class Edit extends \ProjectEight\PersistenceLayerExample\Controller\Adminhtml\WhatsIt
 {
     /**
+     * Authorization level of a basic admin session
+     *
+     * @see _isAllowed()
+     */
+    const ADMIN_RESOURCE = 'ProjectEight_PersistenceLayerExample::WhatsIt_edit';
+
+    /**
      * Result Page Factory
      *
      * @var \Magento\Framework\View\Result\PageFactory
@@ -70,7 +77,7 @@ class Edit extends \ProjectEight\PersistenceLayerExample\Controller\Adminhtml\Wh
                 return $resultRedirect->setPath('*/*/');
             }
         }
-        $this->_coreRegistry->register('projecteight_persistencelayerexample_whatsit', $model);
+        $this->coreRegistry->register('projecteight_persistencelayerexample_whatsit', $model);
 
         // 5. Build edit form
         /** @var \Magento\Backend\Model\View\Result\Page $resultPage */

@@ -33,6 +33,7 @@ class DeleteButton extends GenericButton implements ButtonProviderInterface
             $data = [
                 'label'      => __('Delete Whatsit'),
                 'class'      => 'delete',
+                'id'         => 'whatsit-edit-delete-button',
                 'on_click'   => 'deleteConfirm(\'' . __(
                         'Are you sure you want to do this?'
                     ) . '\', \'' . $this->getDeleteUrl() . '\')',

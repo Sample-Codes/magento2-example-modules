@@ -35,7 +35,7 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
      * @param string                 $name
      * @param string                 $primaryFieldName
      * @param string                 $requestFieldName
-     * @param CollectionFactory      $blockCollectionFactory
+     * @param \ProjectEight\PersistenceLayerExample\Model\ResourceModel\WhatsIt\CollectionFactory      $blockCollectionFactory
      * @param DataPersistorInterface $dataPersister
      * @param array[]                $meta
      * @param string[]               $data

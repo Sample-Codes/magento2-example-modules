@@ -24,8 +24,8 @@ class WhatsItActions extends \Magento\Ui\Component\Listing\Columns\Column
      * @param \Magento\Framework\View\Element\UiComponent\ContextInterface $context
      * @param \Magento\Framework\View\Element\UiComponentFactory           $uiComponentFactory
      * @param \Magento\Framework\UrlInterface                              $urlBuilder
-     * @param UiComponentInterface[]                                       $components
-     * @param array[]|string[]                                             $data
+     * @param array                                                        $components
+     * @param array                                                        $data
      */
     public function __construct(
         \Magento\Framework\View\Element\UiComponent\ContextInterface $context,

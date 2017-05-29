@@ -5,17 +5,13 @@
                  type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
         <arguments>
             <argument name="mainTable" xsi:type="string">projecteight_whatsit</argument>
-            <argument name="resourceModel"
-                      xsi:type="string">ProjectEight\PersistenceLayerExample\Model\ResourceModel\WhatsIt\Collection
-            </argument>
+            <argument name="resourceModel" xsi:type="string">ProjectEight\PersistenceLayerExample\Model\ResourceModel\WhatsIt\Collection</argument>
         </arguments>
     </virtualType>
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
             <argument name="collections" xsi:type="array">
-                <item name="projecteight_whatsit_grid_data_source"
-                      xsi:type="string">ProjectEight\PersistenceLayerExample\Model\ResourceModel\WhatsIt\Grid\Collection
-                </item>
+                <item name="projecteight_whatsit_grid_data_source" xsi:type="string">ProjectEight\PersistenceLayerExample\Model\ResourceModel\WhatsIt\Grid\Collection</item>
             </argument>
         </arguments>
     </type>

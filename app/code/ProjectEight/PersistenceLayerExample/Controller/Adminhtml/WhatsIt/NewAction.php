@@ -6,6 +6,13 @@ namespace ProjectEight\PersistenceLayerExample\Controller\Adminhtml\WhatsIt;
 class NewAction extends \ProjectEight\PersistenceLayerExample\Controller\Adminhtml\WhatsIt
 {
     /**
+     * Authorization level of a basic admin session
+     *
+     * @see _isAllowed()
+     */
+    const ADMIN_RESOURCE = 'ProjectEight_PersistenceLayerExample::WhatsIt_update';
+
+    /**
      * Result Forward Factory
      *
      * @var \Magento\Backend\Model\View\Result\ForwardFactory
