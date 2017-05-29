@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="ProjectEight::top_level" module="ProjectEight_PersistenceLayerExample"
+             resource="Magento_Backend::content" sortOrder="9999" title="ProjectEight"/>
+        <add action="projecteight_persistencelayerexample/whatsit/index" id="ProjectEight::projecteight_whatsit"
+             module="ProjectEight_PersistenceLayerExample" parent="ProjectEight::top_level"
+             resource="Magento_Backend::content" sortOrder="9999" title="WhatsIt"/>
+    </menu>
+</config>
