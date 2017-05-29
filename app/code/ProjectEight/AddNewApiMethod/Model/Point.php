@@ -62,11 +62,11 @@ class Point implements PointInterface
     /**
      * Set the x coordinate.
      *
+     *
+     * @param float $value The new x coordinate.
+     *
      * @api
-     *
-     * @param $value float The new x coordinate.
-     *
-     * @return null
+     * @return void
      */
     public function setX($value)
     {
@@ -87,11 +87,11 @@ class Point implements PointInterface
     /**
      * Set the y coordinate.
      *
+     *
+     * @param float $value The new y coordinate.
+     *
      * @api
-     *
-     * @param $value float The new y coordinate.
-     *
-     * @return null
+     * @return void
      */
     public function setY($value)
     {
