@@ -44,10 +44,10 @@ interface CalculatorInterface
      * Compute mid-point between two points.
      * Note: Do not import these class names, or Magento 2 will not be able to work out which class to use
      *
-     * @param ProjectEight\AddNewApiMethod\Api\Data\PointInterface $pointOne The first point.
-     * @param ProjectEight\AddNewApiMethod\Api\Data\PointInterface $pointTwo The second point.
+     * @param \ProjectEight\AddNewApiMethod\Api\Data\PointInterface $pointOne The first point.
+     * @param \ProjectEight\AddNewApiMethod\Api\Data\PointInterface $pointTwo The second point.
      *
-     * @return ProjectEight\AddNewApiMethod\Api\Data\PointInterface The mid-point.
+     * @return \ProjectEight\AddNewApiMethod\Api\Data\PointInterface The mid-point.
      */
     public function midPoint($pointOne, $pointTwo);
 }
