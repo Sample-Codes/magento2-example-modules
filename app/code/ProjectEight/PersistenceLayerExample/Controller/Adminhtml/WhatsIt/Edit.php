@@ -19,35 +19,12 @@ namespace ProjectEight\PersistenceLayerExample\Controller\Adminhtml\WhatsIt;
 
 class Edit extends \ProjectEight\PersistenceLayerExample\Controller\Adminhtml\WhatsIt
 {
-    /**
-     * Authorization level of a basic admin session
-     *
-     * @see _isAllowed()
-     */
-    const ADMIN_RESOURCE = 'ProjectEight_PersistenceLayerExample::WhatsIt_edit';
-
-    /**
-     * Result Page Factory
-     *
-     * @var \Magento\Framework\View\Result\PageFactory
-     */
-    protected $resultPageFactory;
-
-    /**
-     * Constructor
-     *
-     * @param \Magento\Backend\App\Action\Context        $context
-     * @param \Magento\Framework\Registry                $coreRegistry
-     * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
-     */
-    public function __construct(
-        \Magento\Backend\App\Action\Context $context,
-        \Magento\Framework\Registry $coreRegistry,
-        \Magento\Framework\View\Result\PageFactory $resultPageFactory
-    ) {
-        $this->resultPageFactory = $resultPageFactory;
-        parent::__construct($context, $coreRegistry);
-    }
+//    /**
+//     * Authorization level of a basic admin session
+//     *
+//     * @see _isAllowed()
+//     */
+//    const ADMIN_RESOURCE = 'ProjectEight_PersistenceLayerExample::WhatsIt_edit';
 
     /**
      * Edit action

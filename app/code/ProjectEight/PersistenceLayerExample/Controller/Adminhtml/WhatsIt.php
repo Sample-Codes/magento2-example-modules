@@ -36,22 +36,32 @@ abstract class WhatsIt extends \Magento\Backend\App\Action
     protected $resultPageFactory;
 
     /**
+     * Result Forward Factory
+     *
+     * @var \Magento\Framework\Controller\Result\Forward
+     */
+    protected $resultForwardFactory;
+
+    /**
      * Constructor
      *
      * @param \Magento\Backend\App\Action\Context                                  $context
      * @param \Magento\Framework\Registry                                          $coreRegistry
-     * @param \ProjectEight\PersistenceLayerExample\Api\WhatsItRepositoryInterface $whatsItRepository
      * @param \Magento\Framework\View\Result\PageFactory                           $resultPageFactory
+     * @param \ProjectEight\PersistenceLayerExample\Api\WhatsItRepositoryInterface $whatsItRepository
+     * @param \Magento\Backend\Model\View\Result\ForwardFactory                    $resultForwardFactory
      */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
         \Magento\Framework\Registry $coreRegistry,
+        \Magento\Framework\View\Result\PageFactory $resultPageFactory,
         \ProjectEight\PersistenceLayerExample\Api\WhatsItRepositoryInterface $whatsItRepository,
-        \Magento\Framework\View\Result\PageFactory $resultPageFactory
+        \Magento\Backend\Model\View\Result\ForwardFactory $resultForwardFactory
     ) {
-        $this->coreRegistry      = $coreRegistry;
-        $this->whatsItRepository = $whatsItRepository;
-        $this->resultPageFactory = $resultPageFactory;
+        $this->coreRegistry         = $coreRegistry;
+        $this->resultPageFactory    = $resultPageFactory;
+        $this->whatsItRepository    = $whatsItRepository;
+        $this->resultForwardFactory = $resultForwardFactory;
         parent::__construct($context);
     }
 
@@ -80,7 +90,7 @@ abstract class WhatsIt extends \Magento\Backend\App\Action
      */
     public function initPage($resultPage)
     {
-        $resultPage->setActiveMenu('Experius_Test::top_level')
+        $resultPage->setActiveMenu('ProjectEight_PersistenceLayerExample::top_level')
                    ->addBreadcrumb(__('ProjectEight'), __('ProjectEight'))
                    ->addBreadcrumb(__('Whatsit'), __('Whatsit'))
         ;
