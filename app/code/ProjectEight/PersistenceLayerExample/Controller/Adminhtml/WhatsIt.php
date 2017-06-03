@@ -12,7 +12,7 @@ abstract class WhatsIt extends \Magento\Backend\App\Action
      *
      * @see _isAllowed()
      */
-    const ADMIN_RESOURCE = 'ProjectEight_PersistenceLayerExample::top_level';
+    const ADMIN_RESOURCE = 'ProjectEight_PersistenceLayerExample::WhatsIt';
 
     /**
      * Core Registry
@@ -90,7 +90,7 @@ abstract class WhatsIt extends \Magento\Backend\App\Action
      */
     public function initPage($resultPage)
     {
-        $resultPage->setActiveMenu('ProjectEight_PersistenceLayerExample::top_level')
+        $resultPage->setActiveMenu('ProjectEight_PersistenceLayerExample::WhatsIt')
                    ->addBreadcrumb(__('ProjectEight'), __('ProjectEight'))
                    ->addBreadcrumb(__('Whatsit'), __('Whatsit'))
         ;

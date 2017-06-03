@@ -1,18 +1,15 @@
 <?xml version="1.0" ?>
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
     <acl>
         <resources>
             <resource id="Magento_Backend::admin">
-                <resource id="ProjectEight_PersistenceLayerExample::WhatsIt" sortOrder="10" title="WhatsIt">
-                    <resource id="ProjectEight_PersistenceLayerExample::WhatsIt_save" sortOrder="10"
-                              title="Save WhatsIt"/>
-                    <resource id="ProjectEight_PersistenceLayerExample::WhatsIt_delete" sortOrder="20"
-                              title="Delete WhatsIt"/>
-                    <resource id="ProjectEight_PersistenceLayerExample::WhatsIt_update" sortOrder="30"
-                              title="Update WhatsIt"/>
-                    <resource id="ProjectEight_PersistenceLayerExample::WhatsIt_view" sortOrder="40"
-                              title="View WhatsIt"/>
+                <resource id="ProjectEight_PersistenceLayerExample::WhatsIt" title="WhatsIts" translate="title" sortOrder="10">
+                    <resource id="ProjectEight_PersistenceLayerExample::WhatsIt_save" title="Save WhatsIt" translate="title" sortOrder="30"/>
+                    <resource id="ProjectEight_PersistenceLayerExample::WhatsIt_delete" title="Delete WhatsIt" translate="title" sortOrder="40"/>
+                    <!-- @todo Change WhatsIt_update to WhatsIt_edit to make it more obvious what it is permissing -->
+                    <resource id="ProjectEight_PersistenceLayerExample::WhatsIt_update" title="Update WhatsIt" translate="title" sortOrder="20"/>
+                    <!-- @todo Change WhatsIt_view to WhatsIt_index to make it more obvious what it is permissing -->
+                    <resource id="ProjectEight_PersistenceLayerExample::WhatsIt_view" title="View WhatsIt" translate="title" sortOrder="10"/>
                 </resource>
             </resource>
         </resources>

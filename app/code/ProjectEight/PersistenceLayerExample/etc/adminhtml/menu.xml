@@ -2,10 +2,13 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
     <menu>
-        <add id="ProjectEight::top_level" module="ProjectEight_PersistenceLayerExample"
-             resource="Magento_Backend::content" sortOrder="9999" title="ProjectEight"/>
-        <add action="projecteight_persistencelayerexample/whatsit/index" id="ProjectEight::projecteight_whatsit"
-             module="ProjectEight_PersistenceLayerExample" parent="ProjectEight::top_level"
-             resource="Magento_Backend::content" sortOrder="9999" title="WhatsIt"/>
+        <add id="ProjectEight_PersistenceLayerExample::WhatsIt" title="ProjectEight" translate="title"
+             module="ProjectEight_PersistenceLayerExample"
+             sortOrder="10" resource="ProjectEight_PersistenceLayerExample::WhatsIt" />
+        <add id="ProjectEight_PersistenceLayerExample::WhatsIt_view" title="WhatsIts" translate="title"
+             module="ProjectEight_PersistenceLayerExample"
+             sortOrder="10" resource="ProjectEight_PersistenceLayerExample::WhatsIt_view"
+             parent="ProjectEight_PersistenceLayerExample::WhatsIt" action="projecteight_persistencelayerexample/whatsit/index"
+             dependsOnModule="ProjectEight_PersistenceLayerExample" />
     </menu>
 </config>
