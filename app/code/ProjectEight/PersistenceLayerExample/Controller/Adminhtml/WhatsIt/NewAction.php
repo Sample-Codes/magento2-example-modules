@@ -10,7 +10,7 @@ class NewAction extends \ProjectEight\PersistenceLayerExample\Controller\Adminht
      *
      * @see _isAllowed()
      */
-    const ADMIN_RESOURCE = 'ProjectEight_PersistenceLayerExample::WhatsIt_update';
+    const ADMIN_RESOURCE = 'ProjectEight_PersistenceLayerExample::WhatsIt_edit';
 
     /**
      * New action

@@ -24,7 +24,7 @@ class Edit extends \ProjectEight\PersistenceLayerExample\Controller\Adminhtml\Wh
      *
      * @see _isAllowed()
      */
-    const ADMIN_RESOURCE = 'ProjectEight_PersistenceLayerExample::WhatsIt_update';
+    const ADMIN_RESOURCE = 'ProjectEight_PersistenceLayerExample::WhatsIt_edit';
 
     /**
      * Edit action

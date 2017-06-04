@@ -6,8 +6,7 @@
                 <resource id="ProjectEight_PersistenceLayerExample::WhatsIt" title="WhatsIts" translate="title" sortOrder="10">
                     <resource id="ProjectEight_PersistenceLayerExample::WhatsIt_save" title="Save WhatsIt" translate="title" sortOrder="30"/>
                     <resource id="ProjectEight_PersistenceLayerExample::WhatsIt_delete" title="Delete WhatsIt" translate="title" sortOrder="40"/>
-                    <!-- @todo Change WhatsIt_update to WhatsIt_edit to make it more obvious what it is permissing -->
-                    <resource id="ProjectEight_PersistenceLayerExample::WhatsIt_update" title="Update WhatsIt" translate="title" sortOrder="20"/>
+                    <resource id="ProjectEight_PersistenceLayerExample::WhatsIt_edit" title="Update WhatsIt" translate="title" sortOrder="20"/>
                     <!-- @todo Change WhatsIt_view to WhatsIt_index to make it more obvious what it is permissing -->
                     <resource id="ProjectEight_PersistenceLayerExample::WhatsIt_view" title="View WhatsIt" translate="title" sortOrder="10"/>
                 </resource>

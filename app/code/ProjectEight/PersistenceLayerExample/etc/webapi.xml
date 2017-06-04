@@ -22,7 +22,7 @@
     <route method="PUT" url="/V1/projecteight-persistencelayerexample/:whatsitId">
         <service class="ProjectEight\PersistenceLayerExample\Api\WhatsItRepositoryInterface" method="save"/>
         <resources>
-            <resource ref="ProjectEight_PersistenceLayerExample::WhatsIt_update"/>
+            <resource ref="ProjectEight_PersistenceLayerExample::WhatsIt_edit"/>
         </resources>
     </route>
     <route method="DELETE" url="/V1/projecteight-persistencelayerexample/:whatsitId">
