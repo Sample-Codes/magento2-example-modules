@@ -10,7 +10,7 @@ class Index extends \Magento\Backend\App\Action
      *
      * @see _isAllowed()
      */
-    const ADMIN_RESOURCE = 'ProjectEight_PersistenceLayerExample::WhatsIt_view';
+    const ADMIN_RESOURCE = 'ProjectEight_PersistenceLayerExample::WhatsIt_index';
 
     /**
      * Result Page Factory

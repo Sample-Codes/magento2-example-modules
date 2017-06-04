@@ -5,9 +5,9 @@
         <add id="ProjectEight_PersistenceLayerExample::WhatsIt" title="ProjectEight" translate="title"
              module="ProjectEight_PersistenceLayerExample"
              sortOrder="10" resource="ProjectEight_PersistenceLayerExample::WhatsIt" />
-        <add id="ProjectEight_PersistenceLayerExample::WhatsIt_view" title="WhatsIts" translate="title"
+        <add id="ProjectEight_PersistenceLayerExample::WhatsIt_index" title="WhatsIts" translate="title"
              module="ProjectEight_PersistenceLayerExample"
-             sortOrder="10" resource="ProjectEight_PersistenceLayerExample::WhatsIt_view"
+             sortOrder="10" resource="ProjectEight_PersistenceLayerExample::WhatsIt_index"
              parent="ProjectEight_PersistenceLayerExample::WhatsIt" action="projecteight_persistencelayerexample/whatsit/index"
              dependsOnModule="ProjectEight_PersistenceLayerExample" />
     </menu>

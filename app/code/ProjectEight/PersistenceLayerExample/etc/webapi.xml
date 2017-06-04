@@ -10,13 +10,13 @@
     <route method="GET" url="/V1/projecteight-persistencelayerexample/search">
         <service class="ProjectEight\PersistenceLayerExample\Api\WhatsItRepositoryInterface" method="getList"/>
         <resources>
-            <resource ref="ProjectEight_PersistenceLayerExample::WhatsIt_view"/>
+            <resource ref="ProjectEight_PersistenceLayerExample::WhatsIt_index"/>
         </resources>
     </route>
     <route method="GET" url="/V1/projecteight-persistencelayerexample/:whatsitId">
         <service class="ProjectEight\PersistenceLayerExample\Api\WhatsItRepositoryInterface" method="getById"/>
         <resources>
-            <resource ref="ProjectEight_PersistenceLayerExample::WhatsIt_view"/>
+            <resource ref="ProjectEight_PersistenceLayerExample::WhatsIt_index"/>
         </resources>
     </route>
     <route method="PUT" url="/V1/projecteight-persistencelayerexample/:whatsitId">
