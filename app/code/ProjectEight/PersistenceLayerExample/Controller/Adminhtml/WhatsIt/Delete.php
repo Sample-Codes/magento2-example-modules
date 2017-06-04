@@ -31,23 +31,19 @@ class Delete extends \ProjectEight\PersistenceLayerExample\Controller\Adminhtml\
     /**
      * Delete action
      *
-     * @return \Magento\Framework\Controller\ResultInterface
+     * @return \Magento\Backend\Model\View\Result\Redirect
      */
     public function execute()
     {
-        /**
-         * @todo Refactor this to pass the form_key
-         * @todo Refactor this to use POST instead of GET
-         */
-//        /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
-//        $resultRedirect = $this->resultRedirectFactory->create();
+        /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
+        $resultRedirect = $this->resultRedirectFactory->create();
 
-//        $formKeyIsValid = $this->_formKeyValidator->validate($this->getRequest());
-//        $isPost = $this->getRequest()->isPost();
-//        if (!$formKeyIsValid || !$isPost) {
-//            $this->messageManager->addError(__('WhatsIt could not be deleted.'));
-//            return $resultRedirect->setPath('*/*');
-//        }
+        $formKeyIsValid = $this->_formKeyValidator->validate($this->getRequest());
+        $isPost = $this->getRequest()->isPost();
+        if (!$formKeyIsValid || !$isPost) {
+            $this->messageManager->addErrorMessage(__('WhatsIt could not be deleted. Form key was invalid or request was not made by POST.'));
+            return $resultRedirect->setPath('projecteight_persistencelayerexample/whatsit');
+        }
 
         $whatsItId = $this->initCurrentWhatsIt();
         if (!empty($whatsItId)) {
@@ -61,6 +57,6 @@ class Delete extends \ProjectEight\PersistenceLayerExample\Controller\Adminhtml\
 
         /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
         $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
-        return $resultRedirect->setPath('*/*');
+        return $resultRedirect->setPath('projecteight_persistencelayerexample/whatsit');
     }
 }
