@@ -11,7 +11,7 @@
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
             <argument name="collections" xsi:type="array">
-                <item name="projecteight_whatsit_grid_data_source" xsi:type="string">ProjectEight\PersistenceLayerExample\Model\ResourceModel\WhatsIt\Grid\Collection</item>
+                <item name="projecteight_whatsit_index_data_source" xsi:type="string">ProjectEight\PersistenceLayerExample\Model\ResourceModel\WhatsIt\Grid\Collection</item>
             </argument>
         </arguments>
     </type>
