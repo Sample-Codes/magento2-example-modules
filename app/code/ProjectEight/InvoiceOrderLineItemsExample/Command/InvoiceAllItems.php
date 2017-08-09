@@ -24,6 +24,13 @@ use Symfony\Component\Console\Output\OutputInterface;
 class InvoiceAllItems extends Command
 {
     /**
+     * Magento Framework App State
+     *
+     * @var \Magento\Framework\App\State $appState
+     */
+    protected $appState;
+
+    /**
      * UpdateOrderLine constructor.
      *
      * @param \Magento\Framework\App\State $appState
@@ -33,6 +40,9 @@ class InvoiceAllItems extends Command
         \Magento\Framework\App\State $appState,
         $name = null
     ) {
+
+        $this->appState = $appState;
+
         try {
             $appState->getAreaCode();
         } catch (\Magento\Framework\Exception\LocalizedException $exception) {
