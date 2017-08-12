@@ -77,7 +77,7 @@ EOD;
             PageInterface::CONTENT         => $examplePageContent,
             PageInterface::IS_ACTIVE       => 1,
             // Either 0 for all sites or an array of store IDs
-            'stores'                       => [0],
+            'stores'                       => [\Magento\Store\Model\Store::DEFAULT_STORE_ID],
             PageInterface::SORT_ORDER      => 0,
         ];
 
