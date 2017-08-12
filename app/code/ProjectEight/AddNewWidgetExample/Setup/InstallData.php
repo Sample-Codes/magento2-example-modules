@@ -2,17 +2,24 @@
 
 namespace ProjectEight\AddNewWidgetExample\Setup;
 
-use Magento\Cms\Api\Data\BlockInterface;
-use Magento\Cms\Api\BlockRepositoryInterface;
 use Magento\Cms\Model\BlockFactory;
+use Magento\Framework\App\State;
 use Magento\Framework\Setup\InstallDataInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
+use Magento\Theme\Model\ResourceModel\Theme\CollectionFactory as ThemeCollectionFactory;
 use Magento\Widget\Model\ResourceModel\Widget\Instance\CollectionFactory;
 use Magento\Widget\Model\Widget\InstanceFactory;
 
 class InstallData implements InstallDataInterface
 {
+    /**
+     * Application State
+     *
+     * @var State
+     */
+    private $appState;
+
     /**
      * Block Factory
      *
@@ -21,41 +28,58 @@ class InstallData implements InstallDataInterface
     private $blockFactory;
 
     /**
-     * Block Repository
+     * Widget Instance Collection Factory
      *
-     * @var BlockRepositoryInterface
-     */
-    private $blockRepository;
-    /**
      * @var CollectionFactory
      */
     private $appCollectionFactory;
+
     /**
+     * Widget Instance Factory
+     *
      * @var InstanceFactory
      */
     private $widgetFactory;
 
     /**
+     * Theme Collection Factory
+     *
+     * @var ThemeCollectionFactory
+     */
+    private $themeCollectionFactory;
+
+    /**
      * Constructor
      *
-     * @param BlockFactory             $blockFactory
-     * @param BlockRepositoryInterface $blockRepository
-     * @param CollectionFactory        $appCollectionFactory
-     * @param InstanceFactory          $widgetFactory
+     * @param State                  $appState
+     * @param BlockFactory           $blockFactory
+     * @param CollectionFactory      $appCollectionFactory
+     * @param InstanceFactory        $widgetFactory
+     * @param ThemeCollectionFactory $themeCollectionFactory
      */
     public function __construct(
+        State $appState,
         BlockFactory $blockFactory,
-        BlockRepositoryInterface $blockRepository,
         CollectionFactory $appCollectionFactory,
-        InstanceFactory $widgetFactory
+        InstanceFactory $widgetFactory,
+        ThemeCollectionFactory $themeCollectionFactory
     ) {
-        $this->blockFactory         = $blockFactory;
-        $this->blockRepository      = $blockRepository;
-        $this->appCollectionFactory = $appCollectionFactory;
-        $this->widgetFactory        = $widgetFactory;
+        try {
+            $appState->getAreaCode();
+        } catch (\Magento\Framework\Exception\LocalizedException $exception) {
+            $appState->setAreaCode(\Magento\Framework\App\Area::AREA_ADMIN);
+        }
+
+        $this->appState               = $appState;
+        $this->blockFactory           = $blockFactory;
+        $this->appCollectionFactory   = $appCollectionFactory;
+        $this->widgetFactory          = $widgetFactory;
+        $this->themeCollectionFactory = $themeCollectionFactory;
     }
 
     /**
+     * This example adds a widget to all pages
+     *
      * {@inheritdoc}
      * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
      */
@@ -65,18 +89,30 @@ class InstallData implements InstallDataInterface
          * Check the widget doesn't exist already
          */
 
+        $title              = 'Example Widget Title';
+        $blockToUseInWidget = 'contact-us-info';
+
+        $widgetExistsAlready = false;
         /** @var \Magento\Widget\Model\ResourceModel\Widget\Instance\Collection $instanceCollection */
         $instanceCollection = $this->appCollectionFactory->create();
-        $instanceCollection->addFilter('title', $row['title']);
+        $instanceCollection->addFilter('title', $title);
         if ($instanceCollection->count() > 0) {
-            $skip = true;
+            $widgetExistsAlready = true;
         }
 
+        $blockDoesNotExist = false;
         /** @var \Magento\Cms\Model\Block $block */
-        $block = $this->blockFactory->create()->load($row['block_identifier'], 'identifier');
+        $block = $this->blockFactory->create()->load($blockToUseInWidget, 'identifier');
         if (!$block) {
-            $skip = true;
+            $blockDoesNotExist = true;
         }
+
+        if ($widgetExistsAlready || $blockDoesNotExist) {
+            $setup->endSetup();
+
+            return;
+        }
+
         $widgetInstance = $this->widgetFactory->create();
 
         /**
@@ -93,63 +129,48 @@ class InstallData implements InstallDataInterface
          */
         $code = 'cms_static_block';
 
-        $themePath = 'frontend/Magento/luma';
-        $themeId = $this->themeCollectionFactory->create()->getThemeByFullPath($themePath)->getId();
-        $type = $widgetInstance->getWidgetReference('code', $code, 'type');
-        $pageGroup = [];
-        $group = $row['page_group'];
-        $pageGroup['page_group'] = $group;
-        $pageGroup[$group] = array_merge($pageGroupConfig[$group], unserialize($row['group_data']));
-        if (!empty($pageGroup[$group]['entities'])) {
-            $pageGroup[$group]['entities'] = $this->getCategoryByUrlKey(
-                $pageGroup[$group]['entities']
-            )->getId();
-        }
+        /**
+         * Group can be one of:
+         *  anchor_categories
+         *  notanchor_categories
+         *  all_products
+         *  simple_products
+         *  virtual_products
+         *  bundle_products
+         *  downloadable_products
+         *  grouped_products
+         *  configurable_products
+         *  all_pages
+         *  pages
+         *  page_layouts
+         */
+        $group = 'all_pages';
 
-        $widgetInstance->setType($type)->setCode($code)->setThemeId($themeId);
-        $widgetInstance->setTitle($row['title'])
+        $themeId = $this->themeCollectionFactory->create()
+                        ->getThemeByFullPath('frontend/Magento/luma')
+                        ->getId()
+        ;
+        $type                        = $widgetInstance->getWidgetReference('code', $code, 'type');
+        $pageGroupData[$group]       = [
+            'block'         => 'before.body.end',
+            'for'           => 'all',
+            'layout_handle' => 'default',
+            'template'      => 'widget/static_block/default.phtml',
+            'page_id'       => '',
+        ];
+        $pageGroupData['page_group'] = $group;
+
+        $widgetInstance->setType($type)
+                       ->setCode($code)
+                       ->setThemeId($themeId)
+        ;
+        $widgetInstance->setTitle($title)
                        ->setStoreIds([\Magento\Store\Model\Store::DEFAULT_STORE_ID])
                        ->setWidgetParameters(['block_id' => $block->getId()])
-                       ->setPageGroups([$pageGroup]);
+                       ->setPageGroups([$pageGroupData])
+        ;
+        // There is no repository available for saving widgets (as of 2.1.8), so use the old method instead
         $widgetInstance->save();
-
-        /**
-         * Basic example to add a new block
-         */
-        $exampleBlockContent = <<<EOD
-<div class="example-block cms-content">
-    <div class="message info">
-        <span>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer 
-            took a galley of type and scrambled it to make a type specimen book. 
-        </span>
-        <span>
-            It has survived not only five centuries, but also the leap into electronic typesetting, 
-            remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets 
-            containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker 
-            including versions of Lorem Ipsum.
-        </span>
-    </div>
-</div>
-EOD;
-
-        /**
-         * The full list of data keys can be found in \Magento\Cms\Api\Data\BlockInterface
-         */
-        $exampleBlockData = [
-            BlockInterface::TITLE      => 'Example CMS block',
-            // Must be unique
-            BlockInterface::IDENTIFIER => 'example-cms-block',
-            BlockInterface::CONTENT    => $exampleBlockContent,
-            BlockInterface::IS_ACTIVE  => 1,
-            // Either 0 for all sites or an array of store IDs
-            'stores'                   => [0],
-        ];
-
-        $exampleBlockModel = $this->blockFactory->create();
-        $exampleBlockModel->setData($exampleBlockData);
-        $this->blockRepository->save($exampleBlockModel);
 
         $setup->endSetup();
     }
