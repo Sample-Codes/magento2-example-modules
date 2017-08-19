@@ -3,6 +3,7 @@
 namespace ProjectEight\AddNewWidgetExample\Setup;
 
 use Magento\Cms\Model\BlockFactory;
+use Magento\Cms\Api\BlockRepositoryInterface;
 use Magento\Framework\App\State;
 use Magento\Framework\Setup\InstallDataInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
@@ -49,17 +50,26 @@ class InstallData implements InstallDataInterface
     private $themeCollectionFactory;
 
     /**
+     * Block Repository
+     *
+     * @var BlockRepositoryInterface
+     */
+    private $blockRepository;
+
+    /**
      * Constructor
      *
-     * @param State                  $appState
-     * @param BlockFactory           $blockFactory
-     * @param CollectionFactory      $appCollectionFactory
-     * @param InstanceFactory        $widgetFactory
-     * @param ThemeCollectionFactory $themeCollectionFactory
+     * @param State                                        $appState
+     * @param BlockFactory                                 $blockFactory
+     * @param BlockRepositoryInterface                     $blockRepository
+     * @param CollectionFactory                            $appCollectionFactory
+     * @param InstanceFactory                              $widgetFactory
+     * @param ThemeCollectionFactory                       $themeCollectionFactory
      */
     public function __construct(
         State $appState,
         BlockFactory $blockFactory,
+        BlockRepositoryInterface $blockRepository,
         CollectionFactory $appCollectionFactory,
         InstanceFactory $widgetFactory,
         ThemeCollectionFactory $themeCollectionFactory
@@ -72,13 +82,14 @@ class InstallData implements InstallDataInterface
 
         $this->appState               = $appState;
         $this->blockFactory           = $blockFactory;
+        $this->blockRepository        = $blockRepository;
         $this->appCollectionFactory   = $appCollectionFactory;
         $this->widgetFactory          = $widgetFactory;
         $this->themeCollectionFactory = $themeCollectionFactory;
     }
 
     /**
-     * This example adds a widget to all pages
+     * This example adds a widget to all pages of the Luma theme
      *
      * {@inheritdoc}
      * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
@@ -89,29 +100,33 @@ class InstallData implements InstallDataInterface
          * Check the widget doesn't exist already
          */
 
-        $title              = 'Example Widget Title';
-        $blockToUseInWidget = 'contact-us-info';
+        $widgetTitle              = 'Example Widget Title';
+        $blockIdentifier = 'contact-us-info';
 
-        $widgetExistsAlready = false;
-        /** @var \Magento\Widget\Model\ResourceModel\Widget\Instance\Collection $instanceCollection */
-        $instanceCollection = $this->appCollectionFactory->create();
-        $instanceCollection->addFilter('title', $title);
-        if ($instanceCollection->count() > 0) {
-            $widgetExistsAlready = true;
+        $doesWidgetExist = false;
+        /** @var \Magento\Widget\Model\ResourceModel\Widget\Instance\Collection $widgetInstanceCollection */
+        $widgetInstanceCollection = $this->appCollectionFactory->create();
+        $widgetInstanceCollection->addFilter('title', $widgetTitle);
+        if ($widgetInstanceCollection->count() > 0) {
+            $doesWidgetExist = true;
         }
 
-        $blockDoesNotExist = false;
-        /** @var \Magento\Cms\Model\Block $block */
-        $block = $this->blockFactory->create()->load($blockToUseInWidget, 'identifier');
-        if (!$block) {
-            $blockDoesNotExist = true;
+        $doesBlockExist = false;
+        $block = $this->blockRepository->getById($blockIdentifier);
+        if($block->getId()) {
+            $doesBlockExist = true;
         }
 
-        if ($widgetExistsAlready || $blockDoesNotExist) {
+        if ($doesWidgetExist || !$doesBlockExist) {
             $setup->endSetup();
 
             return;
         }
+
+        /**
+         * We've verified that our widget doesn't already exist and that the block we'll use does exist
+         * Now lets create our widget
+         */
 
         $widgetInstance = $this->widgetFactory->create();
 
@@ -150,8 +165,8 @@ class InstallData implements InstallDataInterface
                         ->getThemeByFullPath('frontend/Magento/luma')
                         ->getId()
         ;
-        $type                        = $widgetInstance->getWidgetReference('code', $code, 'type');
-        $pageGroupData[$group]       = [
+        $type = $widgetInstance->getWidgetReference('code', $code, 'type');
+        $pageGroupData[$group] = [
             'block'         => 'before.body.end',
             'for'           => 'all',
             'layout_handle' => 'default',
@@ -164,11 +179,12 @@ class InstallData implements InstallDataInterface
                        ->setCode($code)
                        ->setThemeId($themeId)
         ;
-        $widgetInstance->setTitle($title)
+        $widgetInstance->setTitle($widgetTitle)
                        ->setStoreIds([\Magento\Store\Model\Store::DEFAULT_STORE_ID])
                        ->setWidgetParameters(['block_id' => $block->getId()])
                        ->setPageGroups([$pageGroupData])
         ;
+
         // There is no repository available for saving widgets (as of 2.1.8), so use the old method instead
         $widgetInstance->save();
 
