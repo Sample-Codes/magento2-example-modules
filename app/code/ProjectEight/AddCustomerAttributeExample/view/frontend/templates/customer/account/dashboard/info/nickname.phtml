@@ -1,0 +1,19 @@
+<?php
+/**
+ * Overridden to output the 'projecteight_nickname' attribute in the My Account > Dashboard > Account Information block
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var \ProjectEight\AddCustomerAttributeExample\Block\Customer\Account\Dashboard\Info\Nickname $block */
+?>
+<div class="box box-nickname">
+    <strong class="box-title">
+        <span><?php /* @escapeNotVerified */ echo __('Nickname') ?></span>
+    </strong>
+    <div class="box-content">
+        <p>
+            <?php echo $block->escapeHtml($block->getNickname()) ?><br>
+        </p>
+    </div>
+</div>
