@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Display the attribute in the My Account > Dashboard > Account Information block
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="customer_account_dashboard_info">
+            <block class="ProjectEight\AddCustomerAttributeExample\Block\Customer\Account\Dashboard\Info\Nickname"
+                    name="customer.account.dashboard.info.extra"
+                    as="customer.account.dashboard.info.extra"
+                    template="ProjectEight_AddCustomerAttributeExample::customer/account/dashboard/info/nickname.phtml"
+                    cacheable="false" />
+        </referenceContainer>
+    </body>
+</page>
