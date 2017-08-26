@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * ProjectEight
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this module to newer
+ * versions in the future. If you wish to customize this module for your
+ * needs please contact ProjectEight for more information.
+ *
+ * @package     ProjectEight_AddCustomerAttributeExample
+ * @copyright   Copyright (c) 2017 ProjectEight
+ * @author      ProjectEight
+ *
+ */
+/**
+ * Add the attribute to the My Account > Account Information > Edit Account Information form
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <referenceBlock class="ProjectEight\AddCustomerAttributeExample\Block\Customer\Form\Edit" name="customer_edit" template="ProjectEight_AddCustomerAttributeExample::customer/form/edit.phtml">
+                <container name="form.additional.info" as="form_additional_info"/>
+            </referenceBlock>
+        </referenceContainer>
+    </body>
+</page>
