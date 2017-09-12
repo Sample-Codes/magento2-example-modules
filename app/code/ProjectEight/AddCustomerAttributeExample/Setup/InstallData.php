@@ -48,41 +48,42 @@ class InstallData implements InstallDataInterface
     public function install(ModuleDataSetupInterface $setup, ModuleContextInterface $context)
     {
         /** @var \Magento\Customer\Setup\CustomerSetup $customerSetup */
-        $customerSetup = $this->customerSetupFactory->create(['setup' => $setup]);
-        $customerEntity = $customerSetup->getEavConfig()->getEntityType('customer');
+        $customerSetup  = $this->customerSetupFactory->create(['setup' => $setup]);
+        $customerEntity = $customerSetup->getEavConfig()->getEntityType(Customer::ENTITY);
+        $attributeCode  = 'projecteight_nickname';
 
-        // These are all the possible fields for a customer attribute, not all of these are required
-        $data = array (
-            'backend' => NULL,
-            'type' => 'varchar', // static, varchar, int, text, datetime, decimal
-            'table' => NULL,
-            'frontend' => NULL,
-            'input' => 'text', // select, text, date, hidden, boolean, multiline, textarea, image, multiselect, price, weight, media_image, gallery
-            'label' => 'Nickname',
-            'frontend_class' => NULL,
-            'source' => NULL,
-            'required' => 0,
-            'user_defined' => 1,
-            'default' => NULL,
-            'unique' => 0,
-            'note' => NULL,
-            'global' => 1,
-            'visible' => 1,
-            'system' => 0,
-            'input_filter' => NULL,
+        // These are some of the possible fields for a customer attribute, not all of these are required
+        $data = [
+            'backend'         => null,
+            'type'            => 'varchar', // static, varchar, int, text, datetime, decimal
+            'table'           => null,
+            'frontend'        => null,
+            'input'           => 'text',    // select, text, date, hidden, boolean, multiline, textarea, image,
+                                            // multiselect, price, weight, media_image, gallery
+            'label'           => 'Nickname',
+            'frontend_class'  => null,
+            'source'          => null,
+            'required'        => 0,
+            'user_defined'    => 1,
+            'default'         => null,
+            'unique'          => 0,
+            'note'            => null,
+            'global'          => 1,
+            'visible'         => 1,
+            'system'          => 0,
+            'input_filter'    => null,
             'multiline_count' => 0,
-            'validate_rules' => NULL,
-            'data_model' => NULL,
-            'sort_order' => 0,
-            'group' => '<Label of tab the attribute appears in>',
-            'position' => 999,
-        );
+            'validate_rules'  => null,
+            'data_model'      => null,
+            'sort_order'      => 10,
+            'group'           => 'Account Information', // Label of tab the attribute appears in
+            'position'        => 10,
+        ];
 
         $attributeSetId = $customerEntity->getDefaultAttributeSetId();
         /** @var $attributeSet AttributeSet */
         $attributeSet     = $this->attributeSetFactory->create();
         $attributeGroupId = $attributeSet->getDefaultGroupId($attributeSetId);
-        $attributeCode = 'projecteight_nickname';
         $customerSetup->addAttribute(Customer::ENTITY, $attributeCode, $data);
 
         /*
@@ -106,9 +107,20 @@ class InstallData implements InstallDataInterface
 
         $customerAttribute = $customerSetup->getEavConfig()->getAttribute(Customer::ENTITY, $attributeCode);
         $customerAttribute->addData([
-            'attribute_set_id'   => $attributeSetId,
-            'attribute_group_id' => $attributeGroupId,
-            'used_in_forms'      => ['adminhtml_customer'],
+            'attribute_set_id'      => $attributeSetId,
+            'attribute_group_id'    => $attributeGroupId,
+            // These options control the behaviour of the attribute in admin grids
+            'is_used_in_grid'       => true,
+            'is_filterable_in_grid' => true,
+            'is_searchable_in_grid' => true,
+            /*
+             * This tells magento to add the attribute to the following forms:
+             *
+             * adminhtml_customer:      The edit customer form in the admin
+             * customer_account_create: The register form in the frontend
+             * customer_account_edit:   The edit account information form in the customer account area of the frontend
+             */
+            'used_in_forms'         => ['adminhtml_customer', 'customer_account_create', 'customer_account_edit',],
         ]);
         $customerAttribute->save();
     }
