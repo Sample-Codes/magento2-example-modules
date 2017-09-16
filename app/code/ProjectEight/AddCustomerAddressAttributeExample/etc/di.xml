@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Email\Model\AbstractTemplate">
+        <plugin name="projecteight_addcustomeraddressattributeexample_magento_email_model_abstracttemplate"
+                type="ProjectEight\AddCustomerAddressAttributeExample\Plugin\Magento\Email\Model\AbstractTemplate"
+                sortOrder="10"/>
+    </type>
+</config>
