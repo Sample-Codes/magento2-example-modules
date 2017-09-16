@@ -59,12 +59,12 @@ class InstallData implements InstallDataInterface
     /**
      * Constructor
      *
-     * @param State                                        $appState
-     * @param BlockFactory                                 $blockFactory
-     * @param BlockRepositoryInterface                     $blockRepository
-     * @param CollectionFactory                            $appCollectionFactory
-     * @param InstanceFactory                              $widgetFactory
-     * @param ThemeCollectionFactory                       $themeCollectionFactory
+     * @param State                    $appState
+     * @param BlockFactory             $blockFactory
+     * @param BlockRepositoryInterface $blockRepository
+     * @param CollectionFactory        $appCollectionFactory
+     * @param InstanceFactory          $widgetFactory
+     * @param ThemeCollectionFactory   $themeCollectionFactory
      */
     public function __construct(
         State $appState,
@@ -91,8 +91,10 @@ class InstallData implements InstallDataInterface
     /**
      * This example adds a widget to all pages of the Luma theme
      *
-     * {@inheritdoc}
-     * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
+     * @param ModuleDataSetupInterface $setup
+     * @param ModuleContextInterface   $context
+     *
+     * @return void
      */
     public function install(ModuleDataSetupInterface $setup, ModuleContextInterface $context)
     {
@@ -100,20 +102,20 @@ class InstallData implements InstallDataInterface
          * Check the widget doesn't exist already
          */
 
-        $widgetTitle              = 'Example Widget Title';
+        $widgetTitle     = 'Example Widget Title';
         $blockIdentifier = 'contact-us-info';
 
         $doesWidgetExist = false;
         /** @var \Magento\Widget\Model\ResourceModel\Widget\Instance\Collection $widgetInstanceCollection */
         $widgetInstanceCollection = $this->appCollectionFactory->create();
         $widgetInstanceCollection->addFilter('title', $widgetTitle);
-        if ($widgetInstanceCollection->count() > 0) {
+        if ($widgetInstanceCollection->getSize() > 0) {
             $doesWidgetExist = true;
         }
 
         $doesBlockExist = false;
-        $block = $this->blockRepository->getById($blockIdentifier);
-        if($block->getId()) {
+        $block          = $this->blockRepository->getById($blockIdentifier);
+        if ($block->getId()) {
             $doesBlockExist = true;
         }
 
@@ -161,12 +163,12 @@ class InstallData implements InstallDataInterface
          */
         $group = 'all_pages';
 
-        $themeId = $this->themeCollectionFactory->create()
-                        ->getThemeByFullPath('frontend/Magento/luma')
-                        ->getId()
+        $themeId                     = $this->themeCollectionFactory->create()
+                                                                    ->getThemeByFullPath('frontend/Magento/luma')
+                                                                    ->getId()
         ;
-        $type = $widgetInstance->getWidgetReference('code', $code, 'type');
-        $pageGroupData[$group] = [
+        $type                        = $widgetInstance->getWidgetReference('code', $code, 'type');
+        $pageGroupData[$group]       = [
             'block'         => 'before.body.end',
             'for'           => 'all',
             'layout_handle' => 'default',
