@@ -1,5 +1,18 @@
 <?php
-/* file: app/code/ProjectEight/AddCategoryAttributeExample/Setup/InstallData.php */
+/**
+ * ProjectEight
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this module to newer
+ * versions in the future. If you wish to customize this module for your
+ * needs please contact ProjectEight for more information.
+ *
+ * @package     AddCategoryAttributeExample
+ * @copyright   Copyright (c) 2017 ProjectEight
+ * @author      ProjectEight
+ *
+ */
 
 namespace ProjectEight\AddCategoryAttributeExample\Setup;
 
@@ -8,8 +21,6 @@ use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Magento\Eav\Setup\EavSetup;
 use Magento\Eav\Setup\EavSetupFactory;
-use Magento\Catalog\Model\Category;
-use Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface;
 
 /**
  * @codeCoverageIgnore
@@ -51,8 +62,22 @@ class InstallData implements InstallDataInterface
          *   If specified in the InstallData.php/UpgradeData.php file, they are simply ignored:
          *   label, input, sort_order, group
          */
+
+        /*
+         * 'backend' maps to 'backend_model' in the database.
+         * Backend models are responsible for saving the values of the attribute and performing 'before' and 'after'
+         * operations. They can also perform additional logic and validation before and after an attribute is saved,
+         * loaded or deleted.
+         *
+         * To find all the available backend models in your system:
+         * $ find ./vendor/ -type f -name "*.php" -path "./vendor/magento/module-*/Model/*/Attribute/Backend/*"
+         *
+         * You can also, of course, specify a custom model in the format:
+         * <Namespace>\<ModuleName>\Model\Attribute\Backend\<BackendModelName>
+         */
+        $data['backend'] = null;
+
         $data = [
-            'backend'                  => null,
             'type'                     => 'varchar',
             'table'                    => null,
             'frontend'                 => null,
@@ -63,7 +88,8 @@ class InstallData implements InstallDataInterface
             'default'                  => null,
             'unique'                   => 0,
             'note'                     => null,
-            'global'                   => '\\Magento\\Eav\\Model\\Entity\\Attribute\\ScopedAttributeInterface::SCOPE_STORE',
+            'global'                   =>
+                '\\Magento\\Eav\\Model\\Entity\\Attribute\\ScopedAttributeInterface::SCOPE_STORE',
             'visible'                  => 1,
             'is_visible_on_front'      => 0,
             'wysiwyg_enabled'          => 0,
