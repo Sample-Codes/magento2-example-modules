@@ -15,7 +15,7 @@
  */
 
 \Magento\Framework\Component\ComponentRegistrar::register(
-        \Magento\Framework\Component\ComponentRegistrar::MODULE,
-        'ProjectEight_AddCustomerAddressAttributeExample',
-        __DIR__
-    );
+    \Magento\Framework\Component\ComponentRegistrar::MODULE,
+    'ProjectEight_AddCustomerAddressAttributeExample',
+    __DIR__
+);

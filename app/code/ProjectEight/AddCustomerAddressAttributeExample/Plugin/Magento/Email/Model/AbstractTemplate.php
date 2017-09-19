@@ -1,5 +1,4 @@
 <?php
-
 /**
  * ProjectEight
  *
@@ -9,8 +8,7 @@
  * versions in the future. If you wish to customize this module for your
  * needs please contact ProjectEight for more information.
  *
- * @category    m2-example-modules.localhost.com
- * @package     AbstractTemplate.php
+ * @package     AddCustomerAddressAttributeExample
  * @copyright   Copyright (c) 2017 ProjectEight
  * @author      ProjectEight
  *
@@ -37,9 +35,8 @@ class AbstractTemplate
         \Magento\Email\Model\AbstractTemplate $subject,
         array $variables = []
     ) {
-        if(array_key_exists('customer', $variables)) {
-
-            $customer = $variables['customer'];
+        if (array_key_exists('customer', $variables)) {
+            $customer  = $variables['customer'];
             $addresses = $customer->getAddresses();
             foreach ($addresses as $address) {
                 $customAttributes = $address['custom_attributes'];

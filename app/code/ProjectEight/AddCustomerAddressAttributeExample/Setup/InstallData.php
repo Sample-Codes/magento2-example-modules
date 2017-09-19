@@ -54,10 +54,13 @@ class InstallData implements InstallDataInterface
     }
 
     /**
-     * Creates a new attribute and adds it to the Customer entity and the admin Manage Customer form
+     * Creates a new attribute on the Customer entity and adds it to the admin edit Customer address form
+     * and the edit address form on the frontend
      *
-     * {@inheritdoc}
-     * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
+     * @param ModuleDataSetupInterface $setup
+     * @param ModuleContextInterface   $context
+     *
+     * @return void
      */
     public function install(ModuleDataSetupInterface $setup, ModuleContextInterface $context)
     {
@@ -120,6 +123,9 @@ class InstallData implements InstallDataInterface
             'attribute_group_id' => $attributeGroupId,
             'used_in_forms'      => ['adminhtml_customer_address', 'customer_address_edit'],
         ]);
+
+        // There is no repository available for saving customer address attributes (as of 2.1.8),
+        // so use the old method instead
         $customerAddressAttribute->save();
     }
 }
