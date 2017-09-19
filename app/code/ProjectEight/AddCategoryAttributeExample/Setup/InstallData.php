@@ -51,25 +51,25 @@ class InstallData implements InstallDataInterface
          *   If specified in the InstallData.php/UpgradeData.php file, they are simply ignored:
          *   label, input, sort_order, group
          */
-        $data = array(
-            'backend'                  => NULL,
+        $data = [
+            'backend'                  => null,
             'type'                     => 'varchar',
-            'table'                    => NULL,
-            'frontend'                 => NULL,
-            'frontend_class'           => NULL,
-            'source'                   => NULL,
+            'table'                    => null,
+            'frontend'                 => null,
+            'frontend_class'           => null,
+            'source'                   => null,
             'required'                 => 0,
             'user_defined'             => 0,
-            'default'                  => NULL,
+            'default'                  => null,
             'unique'                   => 0,
-            'note'                     => NULL,
+            'note'                     => null,
             'global'                   => '\\Magento\\Eav\\Model\\Entity\\Attribute\\ScopedAttributeInterface::SCOPE_STORE',
             'visible'                  => 1,
             'is_visible_on_front'      => 0,
             'wysiwyg_enabled'          => 0,
             'is_html_allowed_on_front' => 0,
             'position'                 => 0,
-        );
+        ];
 
         $eavSetup->addAttribute(\Magento\Catalog\Model\Category::ENTITY, 'p8_category_notes', $data);
     }
