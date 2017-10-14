@@ -74,11 +74,11 @@ class InstallData implements InstallDataInterface
          * operations. They can also perform additional logic and validation before and after an attribute is saved,
          * loaded or deleted.
          *
-         * To find all the available backend models in your system:
-         * $ find ./vendor/ -type f -name "*.php" -path "./vendor/magento/module-*/Model/*/Attribute/Backend/*"
+         * To find all the available backend models in your system (replacing {{ASTERISK}} with *):
+         * $ find ./vendor/ -type f -name "*.php" -path "./vendor/magento/module-{{ASTERISK}}/Model/{{ASTERISK}}/Attribute/Backend/{{ASTERISK}}"
          *
          * You can also, of course, specify a custom model in the format:
-         * <Namespace>\<ModuleName>\Model\Attribute\Backend\<BackendModelName>
+         * {{Namespace}}\{{ModuleName}}\Model\Attribute\Backend\{{BackendModelName}}
          */
         // Question: Which backend model is used when 'null' is specified as the backend type?
         $data['backend'] = null;
