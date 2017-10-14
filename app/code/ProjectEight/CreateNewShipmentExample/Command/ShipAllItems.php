@@ -67,44 +67,59 @@ class ShipAllItems extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $objectManager = ObjectManager::getInstance();
-        $orderId       = 2;
+        $orderId       = 4;
         $output->writeln("Output start");
 
         // In production code, you would inject these dependencies via the constructor,
         // rather than use the Object Manager
 
         /** @var \Magento\Shipping\Controller\Adminhtml\Order\ShipmentLoaderFactory $shipmentLoaderFactory */
-        $shipmentLoaderFactory = $objectManager->get(\Magento\Shipping\Controller\Adminhtml\Order\ShipmentLoaderFactory::class);
+        $shipmentLoaderFactory = $objectManager->get(
+            \Magento\Shipping\Controller\Adminhtml\Order\ShipmentLoaderFactory::class
+        );
         /** @var \Magento\Sales\Api\OrderRepositoryInterface $orderRepository */
         $orderRepository = $objectManager->get(\Magento\Sales\Api\OrderRepositoryInterface::class);
 
         try {
-            $output->writeln("Shipping all order items");
+            $output->writeln("Shipping all order items in order ID {$orderId}...");
 
+            // Get the order
             /** @var \Magento\Sales\Api\Data\OrderInterface $order */
             $order = $orderRepository->get($orderId);
 
+            // Create an empty shipment object and assign the order ID to it
             /** @var \Magento\Shipping\Controller\Adminhtml\Order\ShipmentLoader $shipmentLoader */
             $shipmentLoader = $shipmentLoaderFactory->create();
             $shipmentLoader->setOrderId($order->getId());
 
+            // Load the shipment if it exists, or create a new one if not
             /** @var \Magento\Sales\Model\Order\Shipment $shipment */
             $shipment = $shipmentLoader->load();
             if ($shipment) {
+                // Prepare all shippable items for shipment
                 $shipment->register();
+                // Make sure order is in right state
                 $shipment->getOrder()->setIsInProcess(true);
+                // Create a transaction factory object
                 $transactionFactory = $objectManager->get(\Magento\Framework\DB\TransactionFactory::class);
+                // Add shipment and order to transaction
                 $orderShipmentTransaction = $transactionFactory->create()
                                                               ->addObject($shipment)
                                                               ->addObject($shipment->getOrder());
+                // Commit transaction
                 $orderShipmentTransaction->save();
+
+                $output->writeln("Shipment {$shipment->getIncrementId()} created");
+
+                $qtyShipped = 0;
+                foreach ($order->getItems() as $orderItem) {
+                    $qtyShipped += $orderItem->getQtyShipped();
+                }
+                $totalQtyOrdered = (int)$order->getTotalQtyOrdered();
+                $output->writeln("Shipped {$qtyShipped} out of {$totalQtyOrdered} ordered items");
+            } else {
+                $output->writeln("All shippable items in this order have been shipped");
             }
-            $qtyShipped = 0;
-            foreach ($order->getItems() as $orderItem) {
-                $qtyShipped += $orderItem->getQtyShipped();
-            }
-            $totalQtyOrdered = (int)$order->getTotalQtyOrdered();
-            $output->writeln("Shipped {$qtyShipped} out of {$totalQtyOrdered} items ordered");
         } catch (\Magento\Sales\Api\Exception\CouldNotShipExceptionInterface $exception) {
             $output->writeln("Could not create shipment: " . $exception->getMessage());
         }
