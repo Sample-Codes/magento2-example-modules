@@ -57,7 +57,7 @@ class TrackAllItems extends Command
     /**
      * Executes the current command.
      *
-     * @see \Magento\Shipping\Controller\Adminhtml\Order\Shipment\AddTrack
+     * @see \Magento\Shipping\Controller\Adminhtml\Order\Shipment\AddTrack::execute
      *
      * @param InputInterface  $input  An InputInterface instance
      * @param OutputInterface $output An OutputInterface instance
@@ -69,8 +69,8 @@ class TrackAllItems extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $objectManager = ObjectManager::getInstance();
-        $orderId       = 4;
-        $shipmentId    = 5;
+        $orderId       = 7;
+        $shipmentId    = 9;
         $response = [];
         $output->writeln("Output start");
 
@@ -103,10 +103,10 @@ class TrackAllItems extends Command
             $shipmentLoader->setShipment(null);
             $shipmentLoader->setTracking(null);
 
-            // Load the shipment if it exists, or create a new one if not
+            // Load the shipment if it exists
             /** @var \Magento\Sales\Model\Order\Shipment $shipment */
             $shipment = $shipmentLoader->load();
-            if ($shipment) {
+            if ($shipment && $shipment->getId()) {
                 // Believe it or not, this is how it is done in the core
                 /**
                  * @TODO Refactor to remove dependency on object manager
@@ -115,12 +115,16 @@ class TrackAllItems extends Command
                 $track->setNumber($number);
                 $track->setCarrierCode($carrier);
                 $track->setTitle($title);
-                $shipment->addTrack($track);
                 /**
-                 * This is how it is done in the core
                  * @TODO Refactor this to use a repository (if possible).
                  */
+                $shipment->addTrack($track);
                 $shipment->save();
+            } else {
+                $response = [
+                    'error' => true,
+                    'message' => __('Cannot initialize shipment for adding tracking number (Shipment must exist first).'),
+                ];
             }
         } catch (\Magento\Framework\Exception\LocalizedException $e) {
             $response = ['error' => true, 'message' => $e->getMessage()];
@@ -128,7 +132,7 @@ class TrackAllItems extends Command
             $response = ['error' => true, 'message' => __('Cannot add tracking number.')];
         }
 
-        $output->writeln(print_r($response));
+        $output->writeln(print_r($response, true));
 
         $output->writeln("Output finish");
 
