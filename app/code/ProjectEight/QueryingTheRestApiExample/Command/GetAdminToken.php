@@ -62,9 +62,9 @@ class GetAdminToken extends Command
     {
         $this->guzzleHttpClient = new \GuzzleHttp\Client([
             // Base URI is used with relative requests
-            'base_uri' => 'http://magento2-sample-modules.localhost.com/index.php/rest/default/V1/',
+            'base_uri' => 'http://www.magento2-example-modules.dev/index.php/rest/default/V1/',
             // You can set any number of default request options.
-            'timeout'  => 2.0,
+//            'timeout'  => 2.0,
         ]);
 
         return $this->guzzleHttpClient;
