@@ -1,12 +1,10 @@
 <?php
 namespace ProjectEight\QueryingTheRestApiExample\Command;
 
-use GuzzleHttp\Client;
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class GetAdminToken extends Command
+class GetAdminToken extends AbstractRestApiExample
 {
     /**
      * Guzzle HTTP Client
@@ -22,8 +20,6 @@ class GetAdminToken extends Command
     {
         $this->setName("projecteight:examples:querying-the-rest-api:get-admin-token");
         $this->setDescription("Demonstrates how to query the REST API in Magento 2 to get an admin token, to be used in future requests.");
-
-        $this->initClient();
 
         parent::configure();
     }
@@ -51,22 +47,5 @@ class GetAdminToken extends Command
         $adminToken = (string)$response->getBody();
 
         $output->writeln($adminToken);
-    }
-
-    /**
-     * Initialise client
-     *
-     * @return Client
-     */
-    public function initClient()
-    {
-        $this->guzzleHttpClient = new \GuzzleHttp\Client([
-            // Base URI is used with relative requests
-            'base_uri' => 'http://www.magento2-example-modules.dev/index.php/rest/default/V1/',
-            // You can set any number of default request options.
-//            'timeout'  => 2.0,
-        ]);
-
-        return $this->guzzleHttpClient;
     }
 }
