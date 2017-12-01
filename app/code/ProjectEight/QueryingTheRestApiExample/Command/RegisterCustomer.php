@@ -29,7 +29,7 @@ class RegisterCustomer extends AbstractRestApiExample
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $adminToken = $this->getAdminToken();
+        $this->generateAdminToken();
 
         /*
          * Creates a new customer
@@ -62,7 +62,7 @@ class RegisterCustomer extends AbstractRestApiExample
 
         $options['headers'] = [
             "Content-Type" => "application/json",
-            "Authorization" => "Bearer {$adminToken}",
+            "Authorization" => "Bearer {$this->adminToken}",
         ];
 
         $response = $this->guzzleHttpClient->request('POST', 'customers', $options);

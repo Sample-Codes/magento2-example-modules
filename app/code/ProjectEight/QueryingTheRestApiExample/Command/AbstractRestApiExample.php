@@ -61,7 +61,7 @@ abstract class AbstractRestApiExample extends Command
      *
      * @return void
      */
-    protected function getAdminToken()
+    protected function generateAdminToken()
     {
         $data['json']       = [
             'username' => 'admin',
@@ -77,4 +77,26 @@ abstract class AbstractRestApiExample extends Command
         $this->adminToken = (string)$response->getBody();
     }
 
+    /**
+     * Generate a new customer token. The token is valid for one hour.
+     *
+     * @link http://devdocs.magento.com/guides/v2.2/get-started/order-tutorial/order-create-customer.html#get-token
+     *
+     * @return void
+     */
+    protected function generateCustomerToken()
+    {
+        $options['json']       = [
+            'username' => 'simon.frost@example.com',
+            'password' => 'CustomerPassword123',
+        ];
+
+        $options['headers'] = [
+            'Content-Type' => 'application/json',
+        ];
+
+        $response = $this->guzzleHttpClient->request('POST', 'integration/customer/token', $options);
+
+        $this->customerToken = (string)$response->getBody();
+    }
 }
