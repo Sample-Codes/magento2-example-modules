@@ -30,7 +30,7 @@ class CreateCart extends AbstractRestApiExample
 
         $options['headers'] = [
             'Content-Type' => 'application/json',
-            'Authorization' => "Bearer " . $this->customerToken,
+            'Authorization' => "Bearer " . trim($this->customerToken, '"'),
         ];
         $response = $this->guzzleHttpClient->request('POST', 'carts/mine', $options);
 
