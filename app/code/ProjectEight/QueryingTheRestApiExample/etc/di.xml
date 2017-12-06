@@ -7,6 +7,7 @@
                 <item name="projecteight_queryingtherestapiexample_command_registercustomer" xsi:type="object">ProjectEight\QueryingTheRestApiExample\Command\RegisterCustomer</item>
                 <item name="projecteight_queryingtherestapiexample_command_getcustomertoken" xsi:type="object">ProjectEight\QueryingTheRestApiExample\Command\GetCustomerToken</item>
                 <item name="projecteight_queryingtherestapiexample_command_createcart" xsi:type="object">ProjectEight\QueryingTheRestApiExample\Command\CreateCart</item>
+                <item name="projecteight_queryingtherestapiexample_command_addsimpleproducttocart" xsi:type="object">ProjectEight\QueryingTheRestApiExample\Command\AddSimpleProductToCart</item>
             </argument>
         </arguments>
     </type>
